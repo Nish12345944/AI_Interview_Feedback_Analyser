@@ -97,13 +97,16 @@ function MockInterview({ onAnalyze, loading }) {
 
     try {
       // Combine all audio blobs
-      const combinedBlob = new Blob(audioBlobs, { type: 'audio/webm' });
+      const combinedBlob = new Blob(audioBlobs, { type: 'audio/wav' });
       const formData = new FormData();
-      formData.append('file', combinedBlob, 'interview.webm');
+      formData.append('file', combinedBlob, 'interview.wav');
 
       // Upload and transcribe
       const uploadResponse = await axios.post(`${API_URL}/api/upload-audio`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+        headers: { 
+          'Content-Type': 'multipart/form-data'
+        },
+        timeout: 120000 // 2 minutes timeout
       });
 
       const transcript = uploadResponse.data.transcript;
@@ -112,7 +115,9 @@ function MockInterview({ onAnalyze, loading }) {
       // Analyze
       onAnalyze(transcript, skills);
     } catch (error) {
-      alert('Failed to process audio: ' + (error.response?.data?.detail || error.message));
+      console.error('Error:', error);
+      const errorMsg = error.response?.data?.detail || error.message || 'Failed to process audio';
+      alert('Failed to process audio: ' + errorMsg);
       setProcessing(false);
       setStep(2);
     }

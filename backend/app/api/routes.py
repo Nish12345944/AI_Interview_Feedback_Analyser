@@ -3,6 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from typing import List
 import os
+import uuid
 import aiofiles
 from app.core.database import get_db
 from app.models.analysis import Analysis
@@ -21,14 +22,27 @@ async def get_questions(data: QuestionRequest):
 
 @router.post("/upload-audio")
 async def upload_audio(file: UploadFile = File(...)):
-    file_path = os.path.join(UPLOAD_DIR, file.filename)
-    
-    async with aiofiles.open(file_path, 'wb') as f:
-        content = await file.read()
-        await f.write(content)
-    
     try:
+        # Generate unique filename
+        import uuid
+        file_extension = file.filename.split('.')[-1] if '.' in file.filename else 'wav'
+        unique_filename = f"{uuid.uuid4()}.{file_extension}"
+        file_path = os.path.join(UPLOAD_DIR, unique_filename)
+        
+        # Save file
+        async with aiofiles.open(file_path, 'wb') as f:
+            content = await file.read()
+            await f.write(content)
+        
+        # Transcribe
         transcript = await transcribe_audio(file_path)
+        
+        # Clean up file
+        try:
+            os.remove(file_path)
+        except:
+            pass
+            
         return {"transcript": transcript, "audio_path": file_path}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

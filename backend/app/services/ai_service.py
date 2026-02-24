@@ -2,8 +2,9 @@ import openai
 import json
 from typing import List
 from app.core.config import settings
+from openai import OpenAI
 
-openai.api_key = settings.OPENAI_API_KEY
+client = OpenAI(api_key=settings.OPENAI_API_KEY)
 
 async def generate_interview_questions(skills: List[str]) -> List[str]:
     prompt = f"""Generate 5 interview questions for a candidate with the following skills: {', '.join(skills)}
@@ -15,7 +16,7 @@ Example format: ["Question 1?", "Question 2?", "Question 3?", "Question 4?", "Qu
 """
     
     try:
-        response = openai.chat.completions.create(
+        response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are an expert technical interviewer."},
@@ -40,7 +41,7 @@ Example format: ["Question 1?", "Question 2?", "Question 3?", "Question 4?", "Qu
 async def transcribe_audio(audio_path: str) -> str:
     try:
         with open(audio_path, "rb") as audio_file:
-            transcript = openai.audio.transcriptions.create(
+            transcript = client.audio.transcriptions.create(
                 model="whisper-1",
                 file=audio_file
             )
@@ -72,7 +73,7 @@ Evaluate:
 """
     
     try:
-        response = openai.chat.completions.create(
+        response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are an expert interview coach."},
