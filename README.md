@@ -89,8 +89,6 @@ docker-compose up --build
    - View scores and improvement suggestions
 
 ## 🎨 UI Features
-
-- **Dark Theme**: Japanese-inspired design with deep blues and crimson red
 - **Smooth Animations**: Hover effects and transitions
 - **Responsive Design**: Mobile-first approach
 - **Professional Look**: Clean and modern interface
