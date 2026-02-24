@@ -122,26 +122,26 @@ function MockInterview({ onAnalyze, loading }) {
     <div className="mock-interview">
       {step === 1 && (
         <div className="skill-selection">
-          <h2>Choose Interview Type</h2>
+          <h2>🏯 Choose Your Path</h2>
           
           <div className="interview-type-selector">
             <button
               className={`type-btn ${interviewType === 'technical' ? 'selected' : ''}`}
               onClick={() => setInterviewType('technical')}
             >
-              💻 Technical Interview
+              🛡️ Technical Warrior
             </button>
             <button
               className={`type-btn ${interviewType === 'hr' ? 'selected' : ''}`}
               onClick={() => setInterviewType('hr')}
             >
-              👔 HR Interview
+              🏯 HR Diplomat
             </button>
           </div>
 
           {interviewType === 'technical' && (
             <>
-              <p>Select the skills you want to be interviewed on:</p>
+              <p>Select your weapons of mastery:</p>
               <div className="skills-grid">
                 {SKILL_OPTIONS.map(skill => (
                   <button
@@ -158,7 +158,7 @@ function MockInterview({ onAnalyze, loading }) {
 
           {interviewType === 'hr' && (
             <p className="hr-description">
-              Practice common HR interview questions about your background, strengths, weaknesses, and career goals.
+              🏯 Master the art of diplomacy. Face questions about honor, wisdom, and your warrior's journey.
             </p>
           )}
 
@@ -167,7 +167,7 @@ function MockInterview({ onAnalyze, loading }) {
             onClick={startInterview}
             disabled={interviewType === 'technical' && selectedSkills.length === 0}
           >
-            Start Mock Interview
+            ⚔️ Begin Training
           </button>
         </div>
       )}
@@ -175,10 +175,10 @@ function MockInterview({ onAnalyze, loading }) {
       {step === 2 && (
         <div className="interview-session">
           <div className="progress">
-            Question {currentQuestion + 1} of {questions.length}
+            ⛩️ Challenge {currentQuestion + 1} of {questions.length}
           </div>
           <div className="question-card">
-            <h3>Question:</h3>
+            <h3>🏯 Question:</h3>
             <p>{questions[currentQuestion]}</p>
           </div>
 
@@ -190,17 +190,17 @@ function MockInterview({ onAnalyze, loading }) {
             <div className="recording-controls">
               {!recording ? (
                 <button onClick={startRecording} className="record-btn">
-                  🎤 Start Recording Answer
+                  🎤 Speak Your Truth
                 </button>
               ) : (
                 <button onClick={stopRecording} className="stop-btn">
-                  ⏹️ Stop Recording
+                  ⏹️ End Response
                 </button>
               )}
             </div>
             {audioBlobs.length > currentQuestion && (
               <button onClick={nextQuestion} className="next-btn">
-                {currentQuestion < questions.length - 1 ? 'Next Question →' : 'Finish & Analyze'}
+                {currentQuestion < questions.length - 1 ? '⛩️ Next Challenge' : '⚔️ Complete Training'}
               </button>
             )}
           </div>
@@ -210,8 +210,8 @@ function MockInterview({ onAnalyze, loading }) {
       {step === 3 && (
         <div className="processing">
           <div className="spinner"></div>
-          <h2>Processing Your Interview...</h2>
-          <p>Transcribing audio and analyzing your responses...</p>
+          <h2>⛩️ Sensei is Analyzing...</h2>
+          <p>Transcribing your words and evaluating your performance...</p>
         </div>
       )}
     </div>

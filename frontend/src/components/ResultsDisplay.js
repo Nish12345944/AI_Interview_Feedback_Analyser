@@ -20,10 +20,10 @@ function ResultsDisplay({ result }) {
 
   return (
     <div className="results-display">
-      <h2>📊 Analysis Results</h2>
+      <h2>⚔️ Sensei's Verdict ⚔️</h2>
       
       <div className="skills-tested">
-        <strong>Skills Tested:</strong> {result.skills.join(', ')}
+        <strong>⛩️ Path Tested:</strong> {result.skills.join(', ')}
       </div>
 
       <div className="scores-grid">
@@ -50,14 +50,14 @@ function ResultsDisplay({ result }) {
       </div>
 
       <div className="suggestions-section">
-        <h3>💡 Improvement Suggestions</h3>
+        <h3>⛩️ Sensei's Wisdom</h3>
         <div className="suggestions-content">
           <p>{result.improvement_suggestions}</p>
         </div>
       </div>
 
       <div className="analysis-meta">
-        <small>Analysis ID: {result.id} • Created: {new Date(result.created_at).toLocaleString()}</small>
+        <small>🏯 Training Session: {result.id} • {new Date(result.created_at).toLocaleString()}</small>
       </div>
     </div>
   );

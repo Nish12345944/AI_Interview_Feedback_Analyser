@@ -37,8 +37,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>🎤 AI Mock Interview Analyzer</h1>
-        <p>Practice interviews with AI-powered feedback</p>
+        <h1>⚔️ Samurai Interview Dojo ⚔️</h1>
+        <p>Master Your Interview Skills with AI Wisdom</p>
       </header>
 
       <main className="App-main">
@@ -67,7 +67,7 @@ function App() {
       </main>
 
       <footer className="App-footer">
-        <p>Powered by AI • Built with FastAPI & React</p>
+        <p>⛩️ Powered by AI Sensei • Forged with Honor ⛩️</p>
       </footer>
     </div>
   );
