@@ -29,6 +29,11 @@ function App() {
     }
   };
 
+  const resetInterview = () => {
+    setResult(null);
+    setError(null);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -37,11 +42,12 @@ function App() {
       </header>
 
       <main className="App-main">
-        <MockInterview onAnalyze={handleAnalyze} loading={loading} />
+        {!result && <MockInterview onAnalyze={handleAnalyze} loading={loading} />}
         
         {error && (
           <div className="error-message">
             <p>❌ {error}</p>
+            <button onClick={resetInterview}>Try Again</button>
           </div>
         )}
 
@@ -52,7 +58,12 @@ function App() {
           </div>
         )}
 
-        {result && <ResultsDisplay result={result} />}
+        {result && (
+          <>
+            <ResultsDisplay result={result} />
+            <button onClick={resetInterview} style={{marginTop: '2rem'}}>Start New Interview</button>
+          </>
+        )}
       </main>
 
       <footer className="App-footer">
