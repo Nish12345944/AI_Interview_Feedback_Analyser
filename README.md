@@ -1,21 +1,22 @@
-# AI Interview Feedback Analyzer
+# InterviewAI Pro 🎤
 
-A production-ready full-stack application for conducting live mock interviews with AI-powered feedback and analysis.
+A production-ready full-stack application for conducting live mock interviews with AI-powered feedback and analysis. Features a stunning Japanese-inspired dark theme UI.
 
 ## 🎯 Features
 
 - **Two Interview Types:**
   - 💻 Technical Interview (Python, JavaScript, React, AWS, etc.)
   - 👔 HR Interview (Behavioral questions)
+- **Instant Question Generation** - Get 5 relevant questions immediately
 - **Live Audio Recording** - Record your responses in real-time
-- **Automatic Transcription** - OpenAI Whisper converts speech to text
 - **AI-Powered Analysis:**
   - Communication Score (0-100)
   - Confidence Score (0-100)
   - Structure Score (0-100)
   - Technical Score (0-100)
 - **Detailed Feedback** - Personalized improvement suggestions
-- **Persistent Storage** - PostgreSQL database for all interviews
+- **Beautiful UI** - Dark theme with Japanese aesthetic
+- **Fully Responsive** - Works on mobile, tablet, and desktop
 
 ## 🛠️ Tech Stack
 
@@ -29,6 +30,7 @@ A production-ready full-stack application for conducting live mock interviews wi
 - React
 - Axios
 - Native MediaRecorder API
+- Noto Sans JP Font
 
 **Infrastructure:**
 - Docker
@@ -38,7 +40,7 @@ A production-ready full-stack application for conducting live mock interviews wi
 
 ### Prerequisites
 - Docker Desktop installed
-- OpenAI API key
+- OpenAI API key (optional - app works with mock data)
 
 ### Installation
 
@@ -48,7 +50,7 @@ git clone https://github.com/Nish12345944/AI_Interview_Feedback_Analyser.git
 cd AI_Interview_Feedback_Analyser
 ```
 
-2. **Set up environment variables**
+2. **Set up environment variables** (Optional)
 ```bash
 # Edit .env file and add your OpenAI API key
 OPENAI_API_KEY=your_openai_api_key_here
@@ -74,7 +76,7 @@ docker-compose up --build
    - Choose relevant skills (Python, React, AWS, etc.)
 
 3. **Start Interview**
-   - AI generates 5 relevant questions
+   - Get 5 instant questions based on your selection
 
 4. **Record Answers**
    - Click "Start Recording" for each question
@@ -82,9 +84,16 @@ docker-compose up --build
    - Click "Stop Recording" when done
 
 5. **Get Feedback**
-   - Click "Finish & Analyze"
-   - AI transcribes and analyzes your responses
+   - Click "Finish Interview"
+   - Receive instant AI-style analysis
    - View scores and improvement suggestions
+
+## 🎨 UI Features
+
+- **Dark Theme**: Japanese-inspired design with deep blues and crimson red
+- **Smooth Animations**: Hover effects and transitions
+- **Responsive Design**: Mobile-first approach
+- **Professional Look**: Clean and modern interface
 
 ## 🔌 API Endpoints
 
@@ -142,10 +151,36 @@ AI_Interview_Feedback_Analyser/
 
 ## 🔒 Environment Variables
 
-| Variable | Description |
-|----------|-------------|
-| `OPENAI_API_KEY` | Your OpenAI API key |
-| `DATABASE_URL` | PostgreSQL connection string |
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `OPENAI_API_KEY` | Your OpenAI API key | No (uses mock data) |
+| `DATABASE_URL` | PostgreSQL connection string | Yes |
+
+## 🚢 Deployment
+
+### Deploy to Render
+
+1. **Create PostgreSQL Database** on Render
+2. **Deploy Backend**:
+   - Build: `pip install -r requirements.txt`
+   - Start: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+   - Root: `backend`
+   - Env: `OPENAI_API_KEY`, `DATABASE_URL`
+
+3. **Deploy Frontend**:
+   - Build: `cd frontend && npm install && npm run build`
+   - Publish: `frontend/build`
+   - Env: `REACT_APP_API_URL` (your backend URL)
+
+See `DEPLOYMENT.md` for detailed instructions.
+
+## ✨ Key Features
+
+- **No API Required**: Works with mock data for instant testing
+- **Instant Feedback**: Get results in 2 seconds
+- **Beautiful Scores**: Visual score cards with color coding
+- **Skill-Based**: Questions tailored to selected skills
+- **Session History**: Track all your practice sessions
 
 ## 🤝 Contributing
 
@@ -164,6 +199,7 @@ MIT License - feel free to use this project for personal or commercial purposes.
 - OpenAI for GPT-3.5 and Whisper API
 - FastAPI for the excellent web framework
 - React for the frontend library
+- Google Fonts for Noto Sans JP
 
 ## 📧 Contact
 
