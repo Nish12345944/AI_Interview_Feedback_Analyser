@@ -37,15 +37,25 @@ function MockInterview({ onAnalyze, loading }) {
       return;
     }
 
-    try {
-      const response = await axios.post(`${API_URL}/api/questions`, {
-        skills: skills
-      });
-      setQuestions(response.data.questions);
-      setStep(2);
-    } catch (error) {
-      alert('Failed to generate questions');
-    }
+    // Use predefined questions instead of API call
+    const technicalQuestions = [
+      `What is your experience with ${skills[0]}?`,
+      `Describe a challenging project you worked on using ${skills[0]}.`,
+      `How do you stay updated with the latest trends in ${skills.join(' and ')}?`,
+      `Explain a complex technical concept in ${skills[0]} to a non-technical person.`,
+      `What are the best practices you follow when working with ${skills[0]}?`
+    ];
+
+    const hrQuestions = [
+      'Tell me about yourself and your background.',
+      'What are your greatest strengths and weaknesses?',
+      'Describe a time when you faced a difficult challenge at work.',
+      'Where do you see yourself in 5 years?',
+      'Why do you want to work for our company?'
+    ];
+
+    setQuestions(interviewType === 'hr' ? hrQuestions : technicalQuestions);
+    setStep(2);
   };
 
   const startRecording = async () => {

@@ -16,17 +16,22 @@ function App() {
     setError(null);
     setResult(null);
 
-    try {
-      const response = await axios.post(`${API_URL}/api/analyze`, {
-        transcript,
-        skills
-      });
-      setResult(response.data);
-    } catch (err) {
-      setError(err.response?.data?.detail || 'Analysis failed. Please try again.');
-    } finally {
+    // Generate mock analysis instead of API call
+    setTimeout(() => {
+      const mockResult = {
+        id: Math.floor(Math.random() * 10000),
+        skills: skills,
+        transcript: transcript,
+        communication_score: Math.floor(Math.random() * 20) + 70,
+        confidence_score: Math.floor(Math.random() * 20) + 70,
+        structure_score: Math.floor(Math.random() * 20) + 70,
+        technical_score: Math.floor(Math.random() * 20) + 70,
+        improvement_suggestions: `Great job on your interview! Here are some suggestions: 1) Practice more examples related to ${skills.join(', ')}. 2) Work on articulating your thoughts more clearly. 3) Provide more specific examples from your experience. 4) Show more enthusiasm when discussing your projects. 5) Prepare better answers for behavioral questions.`,
+        created_at: new Date().toISOString()
+      };
+      setResult(mockResult);
       setLoading(false);
-    }
+    }, 2000);
   };
 
   const resetInterview = () => {
