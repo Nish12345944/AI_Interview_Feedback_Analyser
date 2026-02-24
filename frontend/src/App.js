@@ -37,8 +37,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>⚔️ Samurai Interview Dojo ⚔️</h1>
-        <p>Master Your Interview Skills with AI Wisdom</p>
+        <h1>🎤 InterviewAI Pro</h1>
+        <p>Master Your Interview Skills with AI-Powered Feedback</p>
       </header>
 
       <main className="App-main">
@@ -67,7 +67,7 @@ function App() {
       </main>
 
       <footer className="App-footer">
-        <p>⛩️ Powered by AI Sensei • Forged with Honor ⛩️</p>
+        <p>🤖 Powered by AI • Built with Precision</p>
       </footer>
     </div>
   );

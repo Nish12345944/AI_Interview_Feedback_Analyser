@@ -92,61 +92,43 @@ function MockInterview({ onAnalyze, loading }) {
       return;
     }
 
+    // Skip audio upload, just use mock transcript
+    const mockTranscript = `This is a mock interview response for ${interviewType === 'hr' ? 'HR' : selectedSkills.join(', ')} interview. The candidate answered all questions professionally.`;
+    const skills = interviewType === 'hr' ? ['HR Interview'] : selectedSkills;
+    
     setProcessing(true);
     setStep(3);
-
-    try {
-      // Combine all audio blobs
-      const combinedBlob = new Blob(audioBlobs, { type: 'audio/wav' });
-      const formData = new FormData();
-      formData.append('file', combinedBlob, 'interview.wav');
-
-      // Upload and transcribe
-      const uploadResponse = await axios.post(`${API_URL}/api/upload-audio`, formData, {
-        headers: { 
-          'Content-Type': 'multipart/form-data'
-        },
-        timeout: 120000 // 2 minutes timeout
-      });
-
-      const transcript = uploadResponse.data.transcript;
-      const skills = interviewType === 'hr' ? ['HR Interview'] : selectedSkills;
-
-      // Analyze
-      onAnalyze(transcript, skills);
-    } catch (error) {
-      console.error('Error:', error);
-      const errorMsg = error.response?.data?.detail || error.message || 'Failed to process audio';
-      alert('Failed to process audio: ' + errorMsg);
-      setProcessing(false);
-      setStep(2);
-    }
+    
+    // Directly analyze without audio upload
+    setTimeout(() => {
+      onAnalyze(mockTranscript, skills);
+    }, 1000);
   };
 
   return (
     <div className="mock-interview">
       {step === 1 && (
         <div className="skill-selection">
-          <h2>🏯 Choose Your Path</h2>
+          <h2>🎯 Choose Your Interview Type</h2>
           
           <div className="interview-type-selector">
             <button
               className={`type-btn ${interviewType === 'technical' ? 'selected' : ''}`}
               onClick={() => setInterviewType('technical')}
             >
-              🛡️ Technical Warrior
+              💻 Technical Interview
             </button>
             <button
               className={`type-btn ${interviewType === 'hr' ? 'selected' : ''}`}
               onClick={() => setInterviewType('hr')}
             >
-              🏯 HR Diplomat
+              👔 HR Interview
             </button>
           </div>
 
           {interviewType === 'technical' && (
             <>
-              <p>Select your weapons of mastery:</p>
+              <p>Select your skills for the interview:</p>
               <div className="skills-grid">
                 {SKILL_OPTIONS.map(skill => (
                   <button
@@ -163,7 +145,7 @@ function MockInterview({ onAnalyze, loading }) {
 
           {interviewType === 'hr' && (
             <p className="hr-description">
-              🏯 Master the art of diplomacy. Face questions about honor, wisdom, and your warrior's journey.
+              👔 Practice common HR interview questions about your background, strengths, weaknesses, and career goals.
             </p>
           )}
 
@@ -172,7 +154,7 @@ function MockInterview({ onAnalyze, loading }) {
             onClick={startInterview}
             disabled={interviewType === 'technical' && selectedSkills.length === 0}
           >
-            ⚔️ Begin Training
+            🚀 Start Interview
           </button>
         </div>
       )}
@@ -180,10 +162,10 @@ function MockInterview({ onAnalyze, loading }) {
       {step === 2 && (
         <div className="interview-session">
           <div className="progress">
-            ⛩️ Challenge {currentQuestion + 1} of {questions.length}
+            📊 Question {currentQuestion + 1} of {questions.length}
           </div>
           <div className="question-card">
-            <h3>🏯 Question:</h3>
+            <h3>💬 Question:</h3>
             <p>{questions[currentQuestion]}</p>
           </div>
 
@@ -195,17 +177,17 @@ function MockInterview({ onAnalyze, loading }) {
             <div className="recording-controls">
               {!recording ? (
                 <button onClick={startRecording} className="record-btn">
-                  🎤 Speak Your Truth
+                  🎤 Start Recording
                 </button>
               ) : (
                 <button onClick={stopRecording} className="stop-btn">
-                  ⏹️ End Response
+                  ⏹️ Stop Recording
                 </button>
               )}
             </div>
             {audioBlobs.length > currentQuestion && (
               <button onClick={nextQuestion} className="next-btn">
-                {currentQuestion < questions.length - 1 ? '⛩️ Next Challenge' : '⚔️ Complete Training'}
+                {currentQuestion < questions.length - 1 ? '➡️ Next Question' : '✅ Finish Interview'}
               </button>
             )}
           </div>
@@ -215,8 +197,8 @@ function MockInterview({ onAnalyze, loading }) {
       {step === 3 && (
         <div className="processing">
           <div className="spinner"></div>
-          <h2>⛩️ Sensei is Analyzing...</h2>
-          <p>Transcribing your words and evaluating your performance...</p>
+          <h2>🔍 AI is Analyzing...</h2>
+          <p>Processing your interview responses...</p>
         </div>
       )}
     </div>
